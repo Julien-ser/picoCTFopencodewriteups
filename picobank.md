@@ -31,7 +31,7 @@ The pico-bank.apk contained a two-part flag hidden in different components of th
 1100111  -> 103 -> g
 ```
 
-**Part 1 Result**: `picoCTF{1_l3d4b0utng`
+**Part 1 Result**: `picoCTF{1_l3d4b0utng` (incomplete - missing middle component)
 
 ## Part 2: Server Response Analysis
 **Location**: OTP verification server response
@@ -43,15 +43,33 @@ The pico-bank.apk contained a two-part flag hidden in different components of th
 - MainActivity.smali contains hint: "Have you analyzed the server's response when handling OTP requests?"
 - The missing part requires actual server interaction
 
+## Part 3: Date-Sorted Binary Analysis
+**Discovery**: The same binary amounts sorted by transaction date reveal the missing middle component
+**Method**: Binary amounts sorted chronologically (2023-06-15 to 2023-07-21) and read in reverse
+
+**Date-Sorted Binary Pattern**:
+```
+Chronological order (reversed reading): _gn3b_tu0b4_d3l_1{FTCocip
+When reversed: picoCTF{1_l3d_4b0ut_b3ng_
+```
+
+**Missing Middle Component**: `_4b0ut_b3ng_` (about_being_)
+
 ## Complete Flag
-**picoCTF{1_l3d4b0utng_r1ch}**
+**picoCTF{1_l3d_4b0ut_b3ng_r1ch}**
 
 ## Summary
-This challenge demonstrated a multi-stage flag retrieval:
-1. **Client-side analysis**: Binary decoding from transaction data
-2. **Server-side interaction**: OTP verification to complete the flag
+This challenge demonstrated a complex multi-stage flag retrieval:
+1. **Code-order analysis**: Binary decoding from transaction data in code order
+2. **Chronological analysis**: Same binary data sorted by date reveals missing middle component
+3. **Server-side interaction**: OTP verification to complete the flag ending
 
-The flag phrase "1_l3d4b0utng_r1ch" translates to "I led about being rich" - fitting the banking app theme.
+**Flag Construction**:
+- Part 1 (code order): `picoCTF{1_l3d`
+- Part 2 (date-sorted): `_4b0ut_b3ng_` 
+- Part 3 (server response): `r1ch}`
+
+The flag phrase "1_l3d_4b0ut_b3ng_r1ch" translates to "I led about being rich" with leetspeak substitutions - fitting the banking app theme.
 
 ## Tools Used
 - apktool for APK decompilation
